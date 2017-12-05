@@ -20,3 +20,19 @@ li {
   font-weight: bold;
   cursor: pointer;
 }
+
+.nav {
+  display: flex
+}
+
+.active {
+  font-weight: bold;
+}
+
+.nav li {
+  margin-right: 20px;
+}
+
+a {
+  text-decoration: none;
+}

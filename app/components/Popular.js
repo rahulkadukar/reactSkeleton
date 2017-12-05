@@ -1,21 +1,29 @@
 var React = require('react');
 var PropTypes = require('prop-types');
+var Link = require('react-router-dom').Link;
 
 class SelectedLanguage extends React.Component {
   render() {
     let languages = ['All', 'C++', 'Python', 'Java', 'Ruby', 'Haskell'];
-
+    
     return (
       <ul className='languages'>
         {
           languages.map((lang) => {
             return (
-              <li key = {lang} 
-                  style = {
-                    (lang === this.props.selectedLanguage) ? {'color' : '#d0021b'} : null}
-                  onClick = {this.props.onSelect.bind(null, lang)}>
-                {lang}
-              </li>
+              <Link 
+                key = {lang} 
+                to = {{
+                  'pathname': this.props.routePath.url + '/' + lang
+                }}
+              >
+                <li key = {lang} 
+                    style = {
+                      (lang === this.props.selectedLanguage) ? {'color' : '#d0021b'} : null}
+                    onClick = {this.props.onSelect.bind(null, lang)}>
+                  {lang}
+                </li>
+              </Link>
             )
           })
         }
@@ -26,7 +34,8 @@ class SelectedLanguage extends React.Component {
 
 SelectedLanguage.propTypes = {
   'selectedLanguage': PropTypes.string.isRequired,
-  'onSelect': PropTypes.func.isRequired
+  'onSelect': PropTypes.func.isRequired,
+  'routePath': PropTypes.object.isRequired
 }
 
 class Popular extends React.Component {
@@ -47,11 +56,13 @@ class Popular extends React.Component {
   }
 
   render() {
+    let routePath = this.props.match;
     return (
       <div>
         <SelectedLanguage 
           selectedLanguage = {this.state.selectedLanguage}
           onSelect = {this._updateLanguage}
+          routePath = {routePath}
         />
       </div>
     )
